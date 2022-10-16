@@ -1,0 +1,60 @@
+function K = patition(A, subL, subR) 
+    %K는 N+1의 열을 갖는 새로운 벡터
+    
+    pivot_index = subR;%피봇 index
+    %   A(pivot_index) 얘는 피봇index에 들어있는 값, pivotvalue
+    
+    Temp_1st = subL-1;
+    %{
+    disp("============================");
+    disp(A);
+    disp("============================");
+    
+    %}
+       %모든 연산의 기준은 다 vector의 index값임을 명시할것.
+    for Temp_2nd = 1:1:subR-1
+        %for문을 통해서 피봇전까지의 요소들을 재정렬해준다.
+        if (A(Temp_2nd)<=A(pivot_index))
+            %여기서는 temp is의 값을 ++해주고 swap해서 
+            %배열에 각요소를 재할당한다.
+                %disp("Temp_1st : "+ Temp_1st);
+
+            Temp_1st = Temp_1st+1;
+            
+            %아래는 swap
+            tempIN = A(Temp_1st);
+            A(Temp_1st) = A(Temp_2nd);
+            A(Temp_2nd) = tempIN;
+            
+            %{
+            disp("Temp_1st : "+ Temp_1st);
+            disp("Temp_2nd : "+ Temp_2nd);
+            disp("tempIN : "+ tempIN);
+            disp("A(Temp_1st) : "+ A(Temp_1st));
+            disp("A(Temp_2nd) : "+ A(Temp_2nd));
+            %}
+            %disp(" : "+ );
+        end
+            %disp("=======================Temp_2nd : "+ Temp_2nd);
+    end
+        %disp(A);
+    %피봇빼고 나머지는 정렬이 되어있어야 한다.
+    %아래부분에서 문제가 발생한다.
+
+    tempOut = A(Temp_1st + 1);   %여기가 문제. Temp_1st + 1가.
+    A(Temp_1st + 1) = A(pivot_index);
+    A(pivot_index) = tempOut;
+    
+        %disp("pivot_index : " + pivot_index);
+        %disp("A(pivot_index) : "+A(pivot_index));
+    
+    %pivot point return.
+    K =[A(subL:Temp_1st) A(Temp_1st+1) A(Temp_1st+2:subR) Temp_1st+1];
+    %pivot 이전 행렬, pivot, pivot 이후 행렬, pivot위치 가 K로 반환된다.
+        %disp(K);
+    
+    
+    %   there is no problem in quick al code 
+    %   but vector of after sorting 
+    %   is not apply to the next operation
+end
